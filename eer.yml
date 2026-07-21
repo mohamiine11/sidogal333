@@ -1,0 +1,31 @@
+name: Surveillance 
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cloner le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances
+        run: pip install requests beautifulsoup4
+
+      - name: Lancer la vérification
+        run: python crous_watcher_github.py
+
+      - name: Sauvegarder l'état
+        run: |
+          git config user.name "crous-watcher-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add state.txt
+          git diff --staged --quiet || git commit -m "update state"
+          git push
