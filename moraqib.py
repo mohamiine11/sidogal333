@@ -6,7 +6,7 @@ import json
 import os
 
 # ============ CONFIGURATION ============
-URL = "https://trouverunlogement.lescrous.fr/tools/47/search?bounds=-2.8155453_47.6945599_-2.6816645_47.6208466&locationName=Vannes+%2856000%29"
+URL = "https://trouverunlogement.lescrous.fr/tools/47/search?bounds=2.9679677_50.6612596_3.125725_50.6008264&locationName=Lille"
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
