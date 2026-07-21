@@ -20,7 +20,7 @@ jobs:
         run: pip install requests beautifulsoup4
 
       - name: Lancer la vérification
-        run: python crous_watcher_github.py
+        run: python moraqib.py
 
       - name: Sauvegarder l'état
         run: |
