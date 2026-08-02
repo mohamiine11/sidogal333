@@ -6,11 +6,10 @@ import json
 import os
 
 # ============ CONFIGURATION ============
-URL = "https://trouverunlogement.lescrous.fr/tools/47/search?bounds=8.926502_42.344665_9.211775_42.203174&locationName=Corte+%2820250%29"
+URL = "https://trouverunlogement.lescrous.fr/tools/47/search?bounds=2.9679677_50.6612596_3.125725_50.6008264&locationName=Lille"
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
-WEBHOOK_URL = os.environ.get("WEBHOOK_NOTIFIER_URL")
 
 
 STATE_FILE = "state.txt"
@@ -58,13 +57,6 @@ def send_telegram_alert(message):
     print(f"Telegram status code: {response.status_code}")
     print(f"Telegram response: {response.text}")
 
-def send_webhook_alert(message):
-    if not WEBHOOK_URL:
-        print("Webhook non configuré.")
-        return
-    payload = {"title": "Logement CROUS disponible", "message": message, "urgent": True}
-    response = requests.post(WEBHOOK_URL, json=payload, timeout=10)
-    print(f"Webhook status: {response.status_code}")
 
 def main():
     was_available = read_previous_state()
@@ -82,7 +74,6 @@ def main():
         )
         print("🚨 Nouveau log détecté, envoi de l'alerte...")
         send_telegram_alert(message)
-        send_webhook_alert(message)
 
     write_state(available)
 
